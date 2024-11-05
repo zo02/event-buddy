@@ -1,6 +1,5 @@
 from django.db import models
 from .event import Event
-from rest_framework import serializers
 
 class Booth(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='booths')
@@ -14,3 +13,6 @@ class Booth(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        ordering = ['name']

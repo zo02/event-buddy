@@ -1,0 +1,36 @@
+services:
+
+  mariadb:
+    image: mariadb:11.5.2-noble
+    container_name: mariadb
+    restart: unless-stopped
+    networks:
+      event-buddy:
+    ports:
+      - "$MYSQL_PORT:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "$MYSQL_ROOT_PASSWORD"
+      MYSQL_DATABASE: "$MYSQL_DATABASE"
+      MYSQL_USER: "$MYSQL_USER"
+      MYSQL_PASSWORD: "$MYSQL_PASSWORD"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    container_name: phpmyadmin
+    restart: unless-stopped
+    networks:
+      event-buddy:
+    ports:
+      - "$PHPMYADMIN_PORT:80"
+    environment:
+      PMA_HOST: "mariadb"
+      PMA_PORT: "3306"
+
+volumes:
+  mariadb-data:
+    name: mariadb-data
+
+networks:
+  event-buddy:
