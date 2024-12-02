@@ -1,5 +1,5 @@
 from django.urls import path
-from api.views import announcement_view, booth_view, event_view, guest_view, program_item_view
+from api.views import announcement_view, booth_view, event_view, guest_view, program_item_view, user_details_view
 
 urlpatterns = [
     path("announcements", announcement_view.AnnouncementListCreateView.as_view(), name="announcement-list"),
@@ -15,4 +15,5 @@ urlpatterns = [
     path("events/hidden", event_view.EventListHidden.as_view(), name="event-list-hidden"),
     path("events", event_view.EventCreate.as_view(), name="event-create"),
     path("events/<int:pk>/", event_view.EventUpdateDelete.as_view(), name="event-update-delete"),
+    path("user/details/<int:pk>", user_details_view.CreateUserDetailsView.as_view(), name="user-details"),
 ]

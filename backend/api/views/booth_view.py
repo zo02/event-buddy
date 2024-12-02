@@ -18,7 +18,7 @@ class BoothListCreateView(generics.ListCreateAPIView):
         return [permissions.IsAuthenticated()]
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        serializer.save()
 
 class BoothRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Booth.objects.all()
@@ -26,4 +26,4 @@ class BoothRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_update(self, serializer):
-        serializer.save(author=self.request.user)
+        serializer.save()
