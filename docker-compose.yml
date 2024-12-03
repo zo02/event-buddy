@@ -2,7 +2,7 @@ services:
 
   mariadb:
     image: mariadb:11.5.2-noble
-    container_name: mariadb
+    container_name: mariadb_event_buddy
     restart: unless-stopped
     networks:
       event-buddy:
@@ -14,11 +14,11 @@ services:
       MYSQL_USER: "$MYSQL_USER"
       MYSQL_PASSWORD: "$MYSQL_PASSWORD"
     volumes:
-      - mariadb-data:/var/lib/mysql
+      - event-buddy-mariadb:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin:5.2.1
-    container_name: phpmyadmin
+    container_name: phpmyadmin_event_buddy
     restart: unless-stopped
     networks:
       event-buddy:
@@ -29,8 +29,8 @@ services:
       PMA_PORT: "3306"
 
 volumes:
-  mariadb-data:
-    name: mariadb-data
+  event-buddy-mariadb:
+    name: event-buddy-mariadb
 
 networks:
   event-buddy:
