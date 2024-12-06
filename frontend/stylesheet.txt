@@ -1,0 +1,5 @@
+slate-800   #1e293b
+zinc-600    #52525b
+stone-300   #d6d3d1
+sky-200     #bae6fd
+blue-300    #93c5fd

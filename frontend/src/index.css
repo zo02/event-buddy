@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.swiper-button-next,
+.swiper-button-prev {
+    @apply text-white hover:text-stone-300; /* Zastosowanie klas Tailwind */
+    top: 45%; /* Przesuwa strzałki 10% w dół od góry kontenera */
+    transform: translateY(-50%); /* Upewnia się, że są wyśrodkowane pionowo względem przesunięcia */
+    color: white; /* Opcjonalnie: zmiana koloru strzałek */
+    
+}
+
+.swiper-button-prev {
+    left: 30px; /* Przesunięcie strzałki w lewo */
+}
+
+.swiper-button-next {
+    right: 30px; /* Przesunięcie strzałki w prawo */
+}
+
+/* Globalny styl przycisku */
+.btn-custom {
+    @apply py-2 px-6 text-lg font-semibold rounded-lg border-2 border-stone-200 text-stone-200 uppercase transition-all duration-300;
+
+    /* Stała ramka */
+    border-color: #e5e7eb; /* Kolor text-stone-200 (jasnoszary) */
+}
+
+/* Efekt powiększania ramki po najechaniu */
+.btn-custom:hover {
+    @apply scale-105; /* Powiększenie przycisku i ramki */
+    border-width: 2px; /* Ustawienie szerokości ramki na hover */
+}
+
+
+
+
