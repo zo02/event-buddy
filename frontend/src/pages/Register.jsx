@@ -1,23 +1,19 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { PlusIcon } from "@heroicons/react/solid";
-import api from "../api"; // Konfiguracja API
+import api from "../api";
 import "../styles/Form.css";
 
 function Register() {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
-    first_name: "",
-    last_name: "",
     password: "",
     confirmPassword: "",
-    description: "",
-    avatar_image: null,
   });
 
-  const [loading, setLoading] = useState(false); // Obsługa stanu ładowania
-  const [errors, setErrors] = useState({}); // Błędy z backendu
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -40,21 +36,20 @@ function Register() {
     e.preventDefault();
     setLoading(true);
 
-    // Tworzenie obiektu do przesyłania tylko username i password
     const dataToSend = {
       username: formData.username,
       password: formData.password,
+      email: formData.email,
     };
 
     try {
-      // Wysyłanie danych do API
-      await api.post("/api/register/", dataToSend);
+      await api.post("/api/user/register/", dataToSend);
       alert("Rejestracja zakończona sukcesem!");
       setErrors({});
-      navigate("/login"); // Przekierowanie po udanej rejestracji
+      navigate("/login");
     } catch (error) {
       if (error.response && error.response.data.errors) {
-        setErrors(error.response.data.errors); // Ustaw błędy
+        setErrors(error.response.data.errors);
       } else {
         console.error("Błąd:", error);
       }
@@ -69,38 +64,6 @@ function Register() {
         <h1 className="text-3xl font-bold text-center text-slate-800 mb-6">
           Zarejestruj się
         </h1>
-
-        {/* Sekcja Avatar */}
-        <div className="flex flex-col items-center mb-6">
-          <label
-            htmlFor="avatar_image"
-            className="block text-sm font-bold text-slate-800 mb-2 text-center"
-          >
-            Avatar
-          </label>
-          <label
-            htmlFor="avatar_image"
-            className="relative w-32 h-32 bg-slate-300 rounded-full flex items-center justify-center cursor-pointer border-4 border-slate-800 hover:bg-slate-400 transition-all duration-300"
-          >
-            {formData.avatar_image ? (
-              <img
-                src={URL.createObjectURL(formData.avatar_image)}
-                alt="Podgląd zdjęcia"
-                className="w-full h-full object-cover rounded-full"
-              />
-            ) : (
-              <PlusIcon className="w-10 h-10 text-white" />
-            )}
-            <input
-              type="file"
-              id="avatar_image"
-              name="avatar_image"
-              onChange={handleFileChange}
-              className="hidden"
-              accept="image/*"
-            />
-          </label>
-        </div>
 
         <form onSubmit={handleSubmit}>
           {/* Pola użytkownika */}
@@ -138,39 +101,6 @@ function Register() {
             </div>
           </div>
 
-          {/* Imię i nazwisko */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            <div>
-              <label htmlFor="first_name" className="block text-sm font-bold text-slate-800 mb-2">
-                Imię
-              </label>
-              <input
-                type="text"
-                id="first_name"
-                name="first_name"
-                value={formData.first_name}
-                onChange={handleChange}
-                className="w-full px-3 py-2 rounded bg-white text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400"
-                placeholder="Wprowadź swoje imię"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="last_name" className="block text-sm font-bold text-slate-800 mb-2">
-                Nazwisko
-              </label>
-              <input
-                type="text"
-                id="last_name"
-                name="last_name"
-                value={formData.last_name}
-                onChange={handleChange}
-                className="w-full px-3 py-2 rounded bg-white text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400"
-                placeholder="Wprowadź swoje nazwisko"
-              />
-            </div>
-          </div>
-
           {/* Hasła */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             <div>
@@ -203,22 +133,6 @@ function Register() {
                 placeholder="Powtórz hasło"
               />
             </div>
-          </div>
-
-          {/* Opis */}
-          <div className="mb-6">
-            <label htmlFor="description" className="block text-sm font-bold text-slate-800 mb-2">
-              Opis
-            </label>
-            <textarea
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              maxLength={500}
-              className="w-full px-3 py-2 h-32 rounded bg-white text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 resize-none"
-              placeholder="Opisz siebie (maks. 500 znaków)"
-            ></textarea>
           </div>
 
           {/* Przycisk */}
