@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './components/ProtectedRoute';
 import AddEvent from './pages/AddEvent';
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar';
 
 function Logout() {
   localStorage.clear();
